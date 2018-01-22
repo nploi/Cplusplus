@@ -8,12 +8,12 @@
 #include <math.h>
 using namespace std;
 
-#define ll long long
 
 int main() {
 
     vector<double> a;
-    double n, w;
+    int n, w;
+    double m;
     double result;
     cin >> n >> w;
     a.resize(n * 2);
@@ -24,31 +24,12 @@ int main() {
 
     sort(a.begin(), a.end());
 
-    if(w > a[n]) {
-        double mof = a[n] / 2, m;
-        if (mof <= a[n - 1]) {
-            m = a[n];
-        } else {
-            m = a[n - 1];
-        }
+    result = 3*n*min(a[0], a[n]/2);
 
-        result = m * n + (m / 2) * n;
-
-        while (result > w) {
-            m = m - 0.1;
-            result = m * n + (m / 2) * n;
-        }
-    }else{
-        if(w < a[n] && w < a[n-1]) {
-            double m = (double)w/(double)2;
-            result = m * n + (m / 2) * n;
-            while(result > w){
-                m = m - 0.1;
-                result = m * n + (m / 2) * n;
-            }
-            result = round(result);
-        }
+    if(result > w){
+        result = w;
     }
+
     cout << result;
 
     return 0;
