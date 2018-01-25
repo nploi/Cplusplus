@@ -9,15 +9,23 @@
 #include <stack>
 using namespace std;
 
-int isOperators(char c) {
-    if (c == '(' || c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
-        return 1;
-    }
+int isNumber(char c) {
     if (c >= 'a' && c <= 'z') {
         return 2;
     }
 }
 
+int preference(char c) {
+    if (c == '+' || c == '-')
+        return 1;
+    if (c == '*' || c == '/')
+        return 2;
+    if (c == '^')
+        return 3;
+    if(c == '(' || c == ')')
+        return -1;
+    return 0;
+}
 
 
 string toPostfix(string infix) {
@@ -25,30 +33,39 @@ string toPostfix(string infix) {
     int i = 0;
     stack<char> operators;
     while (i < infix.size()) {
-        if (isOperators(infix[i]) == 1) {
-
+        if (infix[i] == '(') {
             operators.push(infix[i]);
 
         } else {
 
-            if (isOperators(infix[i]) == 2) {
+            if (isNumber(infix[i]) == 2) {
 
                 result.push_back(infix[i]);
 
             } else {
-
-                while (!operators.empty()) {
-                    if (operators.top() == '(') {
+                if(infix[i]==')') {
+                    while (!operators.empty()) {
+                        if (operators.top() == '(') {
+                            operators.pop();
+                            break;
+                        }
+                        result.push_back(operators.top());
                         operators.pop();
-                        break;
                     }
-                    result.push_back(operators.top());
-                    operators.pop();
+                }else{
+                    if(preference(infix[i]) >= 1 && preference(infix[i]) <= 3){
+                        while(!operators.empty() &&
+                              preference(operators.top()) >= preference(infix[i]) &&
+                              operators.top()!= ')'){
 
+                            result.push_back(operators.top());
+                            operators.pop();
+
+                        }
+                        operators.push(infix[i]);
+                    }
                 }
-
             }
-
         }
 
         i++;
