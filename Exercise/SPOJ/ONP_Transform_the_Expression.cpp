@@ -56,7 +56,7 @@ string toPostfix(string infix) {
                     if(preference(infix[i]) >= 1 && preference(infix[i]) <= 3){
                         while(!operators.empty() &&
                               preference(operators.top()) >= preference(infix[i]) &&
-                              operators.top()!= ')'){
+                              operators.top()!= '('){
 
                             result.push_back(operators.top());
                             operators.pop();
