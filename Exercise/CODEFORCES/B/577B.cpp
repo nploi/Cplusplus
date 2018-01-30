@@ -1,7 +1,3 @@
-//
-// Created by nguyenphucloi on 1/18/18.
-//
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -12,7 +8,8 @@ using namespace std;
 int main() {
 
     vector<double> a;
-    int n, w;
+    int n;
+    double w;
     double m;
     double result;
     cin >> n >> w;
@@ -26,9 +23,7 @@ int main() {
 
     result = 3*n*min(a[0], a[n]/2);
 
-    if(result > w){
-        result = w;
-    }
+    result = min(w, result);
 
     cout << result;
 
