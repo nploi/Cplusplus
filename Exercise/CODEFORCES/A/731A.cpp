@@ -1,3 +1,5 @@
+//http://codeforces.com/problemset/problem/731/A
+
 #include <iostream>
 #include <string>
 
@@ -20,7 +22,6 @@ int rotateRight(string &str, char stop){
 }
 
 int rotateLeft(string &str, char stop){
-
     char temp;
     int count = 0;
     for(int i = 0; i < str.size()  && str[0] != stop; i++){
@@ -37,17 +38,22 @@ int rotateLeft(string &str, char stop){
 
 int nightAtTheMuseum(string str){
     string AZ("abcdefghijklmnopqrstuvwxyz");
-    //121
+
     int size = str.size();
     int sum = 0;
+
     for(int i = 0; i < size; i++){
+
         int pos = AZ.find(str[i]);
+
         if(pos > 13){
            sum += rotateRight(AZ, str[i]);
         }else{
             sum += rotateLeft(AZ, str[i]);
         }
+
     }
+
     return sum;
 }
 
