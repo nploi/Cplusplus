@@ -1,31 +1,39 @@
+//http://codeforces.com/contest/557/problem/B
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <math.h>
+
 using namespace std;
 
 
 int main() {
 
-    vector<double> a;
+    int a[200005];
     int n;
-    double w;
-    double m;
+    int w;
+    double Min;
     double result;
     cin >> n >> w;
-    a.resize(n * 2);
+
+    if(w == 1){
+        cout << w;
+        return 0;
+    }
 
     for (int i = 0; i < n * 2; ++i) {
         cin >> a[i];
     }
 
-    sort(a.begin(), a.end());
+    sort(a, a + (2*n));
 
-    result = 3*n*min(a[0], a[n]/2);
+    Min = min(a[0]*2, a[n]);
 
-    result = min(w, result);
+    result = Min*1.0*n + Min/2.0*n;
 
-    cout << result;
+    result = min(result, w*1.0);
+
+    printf("%.6lf\n", result);
 
     return 0;
 }
