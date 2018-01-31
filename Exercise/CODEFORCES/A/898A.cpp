@@ -9,10 +9,10 @@ unsigned long rounding(unsigned long number){
     int round = (number%10);
     number/=10;
     if(round>5){
-        int neerFinaly = number%10;
+        int nearFinaly = number%10;
         number/=10;
-        neerFinaly++;
-        number = number*10 + neerFinaly;
+        nearFinaly++;
+        number = number*10 + nearFinaly;
     }
     number = number*10;
     return number;
