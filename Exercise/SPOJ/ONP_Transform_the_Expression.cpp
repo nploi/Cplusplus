@@ -10,23 +10,8 @@
 using namespace std;
 
 int isNumber(char c) {
-    if (c >= 'a' && c <= 'z') {
-        return 2;
-    }
+    return (c >= 'a' && c <= 'z');
 }
-
-int preference(char c) {
-    if (c == '+' || c == '-')
-        return 1;
-    if (c == '*' || c == '/')
-        return 2;
-    if (c == '^')
-        return 3;
-    if(c == '(' || c == ')')
-        return -1;
-    return 0;
-}
-
 
 string toPostfix(string infix) {
     string result;
@@ -38,7 +23,7 @@ string toPostfix(string infix) {
 
         } else {
 
-            if (isNumber(infix[i]) == 2) {
+            if (isNumber(infix[i])) {
 
                 result.push_back(infix[i]);
 
@@ -53,27 +38,22 @@ string toPostfix(string infix) {
                         operators.pop();
                     }
                 }else{
-                    if(preference(infix[i]) >= 1 && preference(infix[i]) <= 3){
-                        while(!operators.empty() &&
-                              preference(operators.top()) >= preference(infix[i]) &&
-                              operators.top()!= '('){
-
-                            result.push_back(operators.top());
-                            operators.pop();
-
-                        }
-                        operators.push(infix[i]);
-                    }
+                    operators.push(infix[i]);
                 }
             }
         }
 
         i++;
     }
-    while(!operators.empty()){
+    while (!operators.empty()) {
+        if (operators.top() == '(') {
+            operators.pop();
+            break;
+        }
         result.push_back(operators.top());
         operators.pop();
     }
+
     return result;
 }
 
@@ -89,15 +69,8 @@ int main() {
 
         cin >> infix;
 
-        arrayPostfix[i] = toPostfix(infix);
-
-    }
-
-    for (int j = 0; j < n; j++) {
-        cout << arrayPostfix[j] <<"\n";
+        cout << toPostfix(infix) << "\n";
     }
 
     return 0;
 }
-
-
