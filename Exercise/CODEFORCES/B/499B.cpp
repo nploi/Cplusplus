@@ -8,10 +8,8 @@ using namespace std;
 
 #define matrix vector < vector <string> >
 
-vector<string> Lecture(unsigned int n, unsigned int m, const vector < vector <string> > &table, const vector<string> &arrStr) {
-    vector<string> result;
-
-    result.resize(n);
+string Lecture(unsigned int n, unsigned int m, const matrix &table, const vector<string> &arrStr) {
+    string result("");
 
     for (int i = 0; i < n; i++) {
         int index = -1, j;
@@ -20,20 +18,20 @@ vector<string> Lecture(unsigned int n, unsigned int m, const vector < vector <st
                 index = 0;
                 break;
             }
-            if (arrStr[i] == table[j][1]){
+            if (arrStr[i] == table[j][1]) {
                 index = 1;
                 break;
             }
         }
         if (index != -1) {
 
-            int pos ;
-            if(index == 0 && (table[j][0].size()) <= table[j][1].size()){
+            int pos;
+            if (index == 0 && (table[j][0].size()) <= table[j][1].size()) {
                 pos = 0;
-            }else {
+            } else {
                 pos = 1;
             }
-            result[i] =  table[j][pos];
+            result += table[j][pos] + " ";
         }
 
     }
@@ -42,28 +40,31 @@ vector<string> Lecture(unsigned int n, unsigned int m, const vector < vector <st
 }
 
 int main() {
-    vector < vector <string> > table;
+
+    matrix table;
     vector<string> arrStr, temp;
+
     unsigned int n = 4, m = 3;
+
     cin >> n >> m;
     table.resize(m);
-    for(int i = 0; i < m; i++){
+
+    for (int i = 0; i < m; i++) {
         string str;
         cin >> str;
         table[i].push_back(str);
         cin >> str;
         table[i].push_back(str);
     }
+
     for (int j = 0; j < n; ++j) {
         string str;
         cin >> str;
         arrStr.push_back(str);
     }
 
-    vector<string> actual = Lecture(n, m, table, arrStr);
+    string actual = Lecture(n, m, table, arrStr);
 
-    for (int i = 0; i < n; ++i) {
-        cout << actual[i] << " ";
-    }
+    cout << actual;
     return 0;
 }
