@@ -1,3 +1,17 @@
 # git rm --cached `git ls-files -i --exclude-from=.gitignore`
 .idea
-
+/TEST/CMakeFiles
+/TEST/.idea
+/TEST/CMakeCache.txt
+/TEST/cmake_install.cmake
+/TEST/CODING
+/TEST/CODING.cbp
+/TEST/gmock.pc
+/TEST/gmock_main.pc
+/TEST/gtest.pc
+/TEST/gtest_main.pc
+/TEST/Makefile
+/TEST/Project.cbp
+/TEST/TEST
+/TEST/TEST.cbp
+/TEST/untitled.cbp
