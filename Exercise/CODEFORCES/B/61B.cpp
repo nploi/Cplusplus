@@ -9,7 +9,6 @@ bool isAlphabet(char c) {
     return (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
 }
 
-
 string standard(string str){
     string result;
     while(str[0]==';' ||str[0]=='_' || str[0] == '-'){
@@ -22,6 +21,8 @@ string standard(string str){
 
     for(int i = 0; i < str.size(); i++){
         if(isAlphabet(str[i])){
+            if(str[i] <= 'Z' && str[i] >= 'A')
+                str[i] += ('a' - 'A');
             result.push_back(str[i]);
         }
     }
@@ -29,51 +30,25 @@ string standard(string str){
     return result;
 }
 
-bool check(string str,const vector<string> &arrStr) {
+bool check(string str,const vector<string> &arrStr){
+    int sumSize = 0, count = 0;
 
-    int index = -1;
-    for (int i = 0; i < 3; i++) {
-        if (str[0] == arrStr[i][0] || str[0] == (arrStr[i][0] + 32) ||
-            str[0] == (arrStr[i][0] - 32)) {
-            index = i;
-            break;
+    for(int i = 0; i < 3; i++){
+
+        if(str.find(arrStr[i]) != -1){
+            count++;
+            sumSize+=arrStr[i].size();
         }
+
     }
 
-    int i = 0;
-
-    while (true) {
-
-        if (index == -1 || str.empty() && i >= str.size())
-            break;
-
-        int j = i, k = 0;
-        while (k < arrStr[index].size() &&
-               str[0] == arrStr[index][k] ||
-               str[0] == (arrStr[index][k] + 32) ||
-               str[0] == (arrStr[index][k] - 32)) {
-
-            str.erase(0, 1);
-            k++;
-        }
-
-        if (k < arrStr[index].size() - 1)
-            return false;
-
-        index = -1;
-        for (j = 0; j < 3; j++) {
-            if (str[0] == arrStr[j][0] ||
-                str[0] == (arrStr[j][0] + 32) ||
-                str[0] == (arrStr[j][0] - 32)) {
-                index = j;
-                break;
-            }
-        }
-        i++;
-    }
-
-    if (str.empty())
+    if(sumSize == str.size()){
         return true;
+    }
+
+    if(sumSize == str.size()){
+        return true;
+    }
     return false;
 }
 
