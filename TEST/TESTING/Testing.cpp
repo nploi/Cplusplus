@@ -16,6 +16,7 @@ namespace {
         }
 
     };
+
 }
 
 TEST(TESTCASE01, ClassDeclaration) {
