@@ -33,28 +33,19 @@ string standard(string str){
 bool check(string str,const vector<string> &arrStr){
     int sumSize = 0, count = 0;
 
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < arrStr.size(); i++){
 
-        if(str.find(arrStr[i]) != -1){
-            count++;
-            sumSize+=arrStr[i].size();
+        if(str == arrStr[i]){
+            return true;
         }
 
-    }
-
-    if(sumSize == str.size()){
-        return true;
-    }
-
-    if(sumSize == str.size()){
-        return true;
     }
     return false;
 }
 
 int main() {
 
-    vector<string> arrStr;
+    vector<string> arrStr, arrStr2;
     int n;
     arrStr.resize(3);
     for (int i = 0; i < 3; i++) {
@@ -62,12 +53,22 @@ int main() {
         cin >> str;
         arrStr[i] = standard(str);
     }
+
+    arrStr2.resize(6);
+
+    arrStr2[0] = arrStr[0] +  arrStr[1] +  arrStr[2];
+    arrStr2[1] = arrStr[0] +  arrStr[2] +  arrStr[1];
+    arrStr2[2] = arrStr[1] +  arrStr[0] +  arrStr[2];
+    arrStr2[3] = arrStr[1] +  arrStr[2] +  arrStr[0];
+    arrStr2[4] = arrStr[2] +  arrStr[0] +  arrStr[1];
+    arrStr2[5] = arrStr[2] +  arrStr[1] +  arrStr[0];  
+        
     cin >> n;
     for (int i = 0; i < n; i++) {
         string str;
         cin >> str;
         str = standard(str);
-        cout << ((check(str, arrStr)) ? "ACC" : "WA") << "\n";
+        cout << ((check(str, arrStr2)) ? "ACC" : "WA") << "\n";
     }
     return 0;
 }
