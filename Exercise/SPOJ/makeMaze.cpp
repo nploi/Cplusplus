@@ -1,5 +1,6 @@
 //http://www.spoj.com/problems/MAKEMAZE/
 
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -26,61 +27,56 @@ public:
     }
 };
 
-point near[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
 
 bool findDoor(vector<string> map, vector<point> &door) {
+
     int n = map.size();
     int m = map[0].size();
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < map.size(); i++) {
         if (map[i][0] == '.') {
-            door.push_back(point(i, 0));
+            point p = point(i, 0);
+            door.push_back(p);
             map[i][0] = '#';
         }
         if (map[i][m - 1] == '.') {
-            door.push_back(point(i, m - 1));
+            point p = point(i, m - 1);
+            door.push_back(p);
             map[i][m - 1] = '#';
         }
     }
 
     for (int i = 1; i < m - 1; i++) {
         if (map[0][i] == '.') {
-            door.push_back(point(0, i));
+            point p = point(0, i);
+            door.push_back(p);
             map[0][i] = '#';
         }
         if (map[n - 1][i] == '.') {
-            door.push_back(point(n - 1, i));
+            point p = point(n - 1, i);
+            door.push_back(p);
             map[n -1][i] = '#';
+        }
+        if( door.size() > 2){
+            return false;
         }
     }
 
-    if (door.size() == 1 || door.size() > 2) {
-        return false;
+    if(door.size() == 2){
+        return true;
     }
 
-    return true;
+    return false;
+
 }
 
 bool breadthFirstSearch(vector<string> map, const point &start, const point &end) {
+    vector<point> near = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     queue<point> Q;
-    vector<vector<bool> > mark;
-    mark.resize(map.size());
-
-    //mark
-    for (int i = 0; i < map.size(); ++i) {
-        mark[i].resize(map[i].size());
-
-        for (int j = 0; j < map[i].size(); ++j) {
-            if (map[i][j] == '#') {
-                mark[i][j] = 1;
-            } else {
-                mark[i][j] = 0;
-            }
-        }
-    }
 
     Q.push(start);
-    mark[start.x][start.y] = 1;
+    map[start.x][start.y] = '#';
 
     while (!Q.empty()) {
 
@@ -96,9 +92,9 @@ bool breadthFirstSearch(vector<string> map, const point &start, const point &end
             if ((p.x + near[i].x >= 0) && (p.x + near[i].x < map.size())
                 && (p.y + near[i].y >= 0) && (p.y + near[i].y < map[0].size())) {
 
-                if (!mark[p.x + near[i].x][p.y + near[i].y]) {
+                if (map[p.x + near[i].x][p.y + near[i].y] != '#') {
                     Q.push({p.x + near[i].x, p.y + near[i].y});
-                    mark[p.x + near[i].x][p.y + near[i].y] = 1;
+                    map[p.x + near[i].x][p.y + near[i].y] = '#';
                 }
 
             }
@@ -109,6 +105,7 @@ bool breadthFirstSearch(vector<string> map, const point &start, const point &end
 
 bool makeMaze(vector<string> map) {
     vector<point> door;
+    bool success;
     if(map.size() == 1 && map[0].size() == 1)
         return false;
 
@@ -116,7 +113,8 @@ bool makeMaze(vector<string> map) {
 
         point start = door[0];
         point end = door[1];
-        return breadthFirstSearch(map, start, end);
+        success = breadthFirstSearch(map, start, end);
+        return success;
     }
 
     return false;
@@ -125,20 +123,21 @@ bool makeMaze(vector<string> map) {
 int main() {
     int t;
     cin >> t;
-
+    vector<string> map;
     while (t != 0) {
         t--;
-        vector<string> map;
+
         int n, m;
 
         cin >> n >> m;
 
-        map.resize(n);
-
-        for (auto &item : map) {
-            cin >> item;
+        for (int i = 0; i < n; i++) {
+            string str;
+            cin >> str;
+            map.push_back(str);
         }
 
         cout << (makeMaze(map) ? "valid\n" : "invalid\n");
+        map.clear();
     }
 }
