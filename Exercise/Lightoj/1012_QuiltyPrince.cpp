@@ -67,7 +67,7 @@ int main(){
  
     int T;
     cin >> T;
-    char number = '1';
+    int number = 1;
     while (T--){
         int W, H;
         Matrix map;
