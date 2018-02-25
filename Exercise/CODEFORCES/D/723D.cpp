@@ -5,7 +5,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
-
+#include <algorithm>
 using namespace std;
 
 struct point {
@@ -16,7 +16,7 @@ public:
         this->x = x;
         this->y = y;
     }
-    point();
+    point(){}
 
     point &operator=(const point &p) {
         this->x = p.x;
@@ -27,20 +27,35 @@ public:
     bool operator==(const point &p) {
         return (x == p.x && y == p.y);
     }
+
+
 };
 
-point near[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+point near[4] = {point(-1, 0), point(0, 1), point(1, 0), point(0, -1)};
 bool MARK[50][50];
 
-bool BFSCheck(const vector<string> &map, const point &cell) {
+struct lake {
+    point p;
+    long size;
+public:
+    lake(point p, int size) {this->size = size, this->p = p;}
+
+    lake(const lake &l) { this->size = l.size, this->p = l.p; }
+
+    bool operator>(const lake &l) { return size > l.size; }
+    bool operator<(const lake &l) { return size < l.size; }
+};
+
+
+
+int BFSGetSize(const vector<string> &map, const point &cell) {
 
     queue<point> Queue;
-    if (cell.x == 0 || cell.x == map.size() - 1 || cell.y == 0 || cell.y == map[0].size() - 1) {
-        return false;
-    }
+    int count = 0;
+
     Queue.push(cell);
     MARK[cell.x][cell.y] = true;
-
+    count++;
 
     while (!Queue.empty()) {
         point p = Queue.front();
@@ -54,13 +69,11 @@ bool BFSCheck(const vector<string> &map, const point &cell) {
             if ((x >= 0) && (x < map.size()) && (y >= 0) && (y < map[0].size())) {
 
                 if (MARK[x][y] != 1 && map[x][y] == '.') {
-                    if (x == 0 || x == map.size() - 1 || y == 0 || y == map[0].size() - 1) {
-                        return false;
-                    } else {
-                        Queue.push({x, y});
-                        MARK[x][y] = 1;
-                    }
 
+                    point t = point(x,y);
+                    Queue.push(t);
+                    MARK[x][y] = 1;
+                    count++;
                 }
 
             }
@@ -68,7 +81,7 @@ bool BFSCheck(const vector<string> &map, const point &cell) {
 
     }
 
-    return true;
+    return count;
 }
 
 void BFSFill(vector<string> &map, point cell) {
@@ -90,8 +103,9 @@ void BFSFill(vector<string> &map, point cell) {
             if ((x >= 0) && (x < map.size()) && (y >= 0) && (y < map[0].size())) {
 
                 if (map[x][y] != '*') {
-                        Queue.push({x, y});
-                        map[x][y] = '*';
+                    point t = point(x,y);
+                    Queue.push(t);
+                    map[x][y] = '*';
                 }
 
             }
@@ -101,16 +115,15 @@ void BFSFill(vector<string> &map, point cell) {
 
 }
 
-int DFS(vector<string> &map, int k) {
-    int count = 0;
+void DFSMarkBeach(vector<string> &map, const point &cell){
+    stack<point> S;
+    S.push(cell);
+    map[cell.x][cell.y] = '#';
 
-    stack<point> Stack;
-    Stack.push({0, 0});
-    MARK[0][0] = 1;
+    while (!S.empty()){
+        point p = S.top();
+        S.pop();
 
-    while (!Stack.empty()) {
-        point p = Stack.top();
-        Stack.pop();
         for (int i = 0; i < 4; ++i) {
 
             int x = p.x + near[i].x;
@@ -118,29 +131,16 @@ int DFS(vector<string> &map, int k) {
 
             if ((x >= 0) && (x < map.size()) && (y >= 0) && (y < map[0].size())) {
 
-                if (MARK[x][y] != 1) {
-
-                    if (map[x][y] == '*') {
-                        Stack.push({x, y});
-                        MARK[x][y] = 1;
-                    } else {
-                        bool l = BFSCheck(map, {x, y});
-                        if(l) {
-                            if (k != 0) {
-                                k -= l;
-                            } else {
-                                count++;
-                                BFSFill(map, {x, y});
-                            }
-                        }
-                    }
+                if (map[x][y] == '.') {
+                    point t = point(x,y);
+                    S.push(t);
+                    map[x][y] = '#';
                 }
 
             }
         }
-    }
 
-    return count;
+    }
 }
 
 int main() {
@@ -148,6 +148,7 @@ int main() {
     long n, m, k;
 
     vector<string> map;
+    vector<lake> lakes;
 
     cin >> n >> m >> k;
 
@@ -157,10 +158,70 @@ int main() {
         cin >> map[i];
     }
 
-    cout << DFS(map, k) << endl;
-    for (int i = 0; i < n ; ++i) {
-        cout << map[i] << endl;
+    point t;
+    for (int i = 0; i < m; ++i) {
+        if (map[0][i] == '.') {
+            /*
+             * mark beach
+             */
+            t = point(0, i);
+            DFSMarkBeach(map, t);
+        }
+        if (map[n - 1][i] == '.') {
+            /*
+             * mark beach
+             */
+            t = point((n - 1), i);
+            DFSMarkBeach(map, t);
+        }
+    }
+
+    for (int i = 1; i < n - 1; ++i) {
+        if (map[i][0] == '.') {
+            /*
+             * mark beach
+             */
+            t = point(i,0);
+            DFSMarkBeach(map, t);
+        }
+        if (map[i][m - 1] == '.') {
+            /*
+             * mark beach
+             */
+            t = point(i, m -1);
+            DFSMarkBeach(map, t);
+        }
+    }
+
+    for (int i = 1; i < n - 1; ++i) {
+        for (int j = 1; j < m - 1; ++j) {
+            if(map[i][j]=='.' && MARK[i][j] != 1){
+                point p(i,j);
+                int size = BFSGetSize(map, p);
+                lakes.push_back((lake){p, size});
+            }
+        }
+    }
+
+    sort(lakes.begin(), lakes.end());
+    int count = 0;
+    for (int i = 0; i < lakes.size() - k; ++i){
+        BFSFill(map, lakes[i].p);
+        count +=lakes[i].size;
+    }
+
+    cout << count  << endl;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if(map[i][j] !='*') {
+                cout << '.';
+            }else{
+                cout << "*";
+            }
+        }
+        cout << endl;
     }
 
     return 0;
 }
+
