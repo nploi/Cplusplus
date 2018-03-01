@@ -1,4 +1,5 @@
 //http://www.spoj.com/problems/SHPATH/en/
+
 /*
 @author
  - loinp
@@ -12,15 +13,18 @@ using namespace std;
 
 #define GRAPH vector<vector<pair<int, int> > >
 
+const int INF = 1e7;
+
 int dijkstra(const GRAPH &graph, int from, int to) {
 
-    vector<int> dist(graph.size(), INT8_MAX);
+    vector<int> dist(graph.size(), INF);
 
     /*
      * first: distance
      * second: city
     */
-    priority_queue<pair<int, int> > pq;
+
+    priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
 
     pq.push(pair<int, int>(0, from));
     dist[from] = 0;
@@ -101,4 +105,5 @@ int main() {
     }
     return 0;
 }
+
 
