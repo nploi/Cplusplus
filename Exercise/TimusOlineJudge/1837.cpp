@@ -45,42 +45,24 @@ int main() {
     cin >> n;
     map<string, int> m;
     vector<vector<int> > graph;
-    graph.resize(n);
+    graph.resize(5000);
+    vector<string> ListStr;
+    ListStr.resize(3);
+
     for (int i = 0; i < n; ++i) {
-        string str1, str2, str3;
-        cin >> str1 >> str2 >> str3;
+        for (int j = 0; j < 3; ++j) {
+            cin >> ListStr[j];
+            if (m.find(ListStr[j]) == m.end()) {
 
-        if (m.find(str1) == m.end()) {
-
-            if (str1 == "Isenbaev") {
-                m.insert(pair<string, int>(str1, 0));
-            } else {
-                m[str1] = k++;
-            }
-        }
-        if (m.find(str2) == m.end()) {
-            if (str2 == "Isenbaev") {
-                m.insert(pair<string, int>(str2, 0));
-            } else {
-                m[str2] = k++;
-            }
-        }
-        if (m.find(str3) == m.end()) {
-            if (str3 == "Isenbaev") {
-                m.insert(pair<string, int>(str3, 0));
-            } else {
-                m[str3] = k++;
+                if (ListStr[j] == "Isenbaev") {
+                    m.insert(pair<string, int>(ListStr[j], 0));
+                } else {
+                    m[ListStr[j]] = k++;
+                }
             }
         }
 
-        int i1 = m[str1], i2 = m[str2], i3 = m[str3];
-
-        int size = max(i1, i2);
-        size = max(size, i3);
-
-        if (size > graph.size()) {
-            graph.resize(size + 1);
-        }
+        int i1 = m[ListStr[0]], i2 = m[ListStr[1]], i3 = m[ListStr[2]];
 
         graph[i1].push_back(i2);
         graph[i1].push_back(i3);
@@ -100,9 +82,9 @@ int main() {
         int d = dist[i->second];
         cout << i->first;
         if (d >= 0 && d != INF) {
-            if(d==0){
-                cout <<" "<<0 << endl;
-            }else {
+            if (d == 0) {
+                cout << " " << 0 << endl;
+            } else {
                 cout << " " << d - 1 << endl;
             }
         } else {
