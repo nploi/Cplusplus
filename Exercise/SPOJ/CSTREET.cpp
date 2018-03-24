@@ -1,4 +1,4 @@
-//http://www.spoj.com/problems/CSTREET/
+//http://www.spoj.com/problems/MST/
 
 /*
 +@author
@@ -16,7 +16,7 @@
 #define INF 1e9
 using namespace std;
 
-long long Cost(const vector<long> &dist, const vector<int> &path){
+long long Cost(const vector<int> &dist, vector<int> &path){
     long long result = 0;
     for (int i = 0; i < dist.size(); ++i) {
         if(path[i] == -1){
@@ -27,8 +27,8 @@ long long Cost(const vector<long> &dist, const vector<int> &path){
     return result;
 }
 
-long long prims(const GRAPH &graph, int s){
-    vector<long> dist(graph.size(), INT64_MAX);
+long prims(const GRAPH &graph, int s){
+    vector<int> dist(graph.size(), INF);
     vector<bool> visit(graph.size(), 0);
     vector<int> path(graph.size(), -1);
 
@@ -61,25 +61,23 @@ long long prims(const GRAPH &graph, int s){
 
 int main(){
 
-    long t, x;
-    cin >> t;
-    while(t--) {
-        GRAPH graph;
-        int n, m;
+    GRAPH graph;
+    int n, m;
 
-        cin >> x >>  n >> m;
+    cin >> n >> m;
 
-        graph.resize(n + 1);
+    graph.resize(n+1);
 
-        while (m--) {
-            long i, j, k;
-            cin >> i >> j >> k;
-            graph[i].push_back(pair<int, int>(j, k));
-            graph[j].push_back(pair<int, int>(i, k));   
-        }
-
-        int s = 1;
-        cout << (long long)(prims(graph, s) * x);
+    while(m--){
+        int i, j, k;
+        cin >> i >> j >> k;
+        graph[i].push_back(pair<int, int>(j, k));
+        graph[j].push_back(pair<int, int>(i, k));
     }
+
+    int s = 1;
+    cout << prims(graph, s);
+
     return 0;
 }
+
