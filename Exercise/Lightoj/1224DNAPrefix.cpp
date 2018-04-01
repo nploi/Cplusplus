@@ -1,6 +1,5 @@
 //http://lightoj.com/volume_showproblem.php?problem=1224
 
-
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -56,8 +55,22 @@ public:
     void deleteWord(string str) {
         deleteWord_pri(root, str, 0, str.size());
     }
+    void deleteWords(){
+        deletenode(this->root);
+    }
 
 private:
+    void deletenode(node *pNode)
+    {
+        for (int i = 0; i<MAX; i++)
+        {
+            if (pNode->child[i])
+            {
+                deletenode(pNode->child[i]);
+                delete pNode->child[i];
+            }
+        }
+    }
     int findMax(node *root, string s) {
         if(s.size() == 0){
             return 0;
@@ -178,6 +191,7 @@ int main() {
             }
         }
         cout <<"Case " << num ++ <<": "<< Max << endl;
+        t.deleteWords();
     }
 
     return 0;
