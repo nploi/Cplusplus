@@ -1,19 +1,40 @@
-cmake_minimum_required(VERSION 3.5.2)
-project(CODING)
+cmake_minimum_required(VERSION 3.9)
+project(GTest)
 
+set(CMAKE_CXX_STANDARD 11)
 
-find_package(UnitTest++ REQUIRED)
+# Download and unpack googletest at configure time
+configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
 
-include_directories(${UTPP_INCLUDE_DIRS})
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-add_subdirectory(lib/googletest)
-include_directories(lib/googletest-master/googletest/include)
-include_directories(lib/googletest-master/googlemock/include)
+# Add googletest directly to our build. This adds
+# the following targets: gtest, gtest_main, gmock
+# and gmock_main
+add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
+        "${CMAKE_BINARY_DIR}/googletest-build")
 
-set(SOURCE_FILES main.cpp TESTING/Testing.cpp TESTING/Testing.h)
+# The gtest/gmock targets carry header search path
+# dependencies automatically when using CMake 2.8.11 or
+# later. Otherwise we have to add them here ourselves.
+if(CMAKE_VERSION VERSION_LESS 2.8.11)
+    include_directories("${gtest_SOURCE_DIR}/include"
+            "${gmock_SOURCE_DIR}/include")
+endif()
 
+# Now simply link your own targets against gtest, gmock,
+# etc. as appropriate
 
-add_executable(CODING ${SOURCE_FILES})
+include_directories(cmake-build-debug/googletest-src/googlemock/include)
+include_directories(cmake-build-debug/googletest-src/googletest/include)
+set(SOURCE_FILES main.cpp)
 
+add_executable(GTest ${SOURCE_FILES})
 
-target_link_libraries(CODING gtest gtest_main)
+target_link_libraries(GTest gtest gtest_main)
