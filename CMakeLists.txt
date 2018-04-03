@@ -33,8 +33,12 @@ endif()
 
 include_directories(cmake-build-debug/googletest-src/googlemock/include)
 include_directories(cmake-build-debug/googletest-src/googletest/include)
-set(SOURCE_FILES main.cpp "Data Structures and Algorithms/AVL/AVL_TEST.cpp")
+set(SOURCE_FILES main.cpp )
+
+set(SOURCE_FILES
+        "Data Structures and Algorithms/Binary Search/BinarySearch_TEST.cpp"
+        "Data Structures and Algorithms/AVL/AVL_TEST.cpp"
+        )
 
 add_executable(GTest ${SOURCE_FILES})
-
 target_link_libraries(GTest gtest gtest_main)
