@@ -5,3 +5,13 @@
 /CMakeCache.txt
 /cmake_install.cmake
 /cmake-build-debug
+/googletest-build
+/googletest-download
+/googletest-src
+/gmock.pc
+/gmock_main.pc
+/gtest.pc
+/gtest_main.pc
+/Makefile
+/GTest
+
