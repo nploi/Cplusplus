@@ -8,5 +8,8 @@ cmake . && sudo make install
 ```
 ### How to test
 ```
-cmake . && make -j4 && ./GTest
+mkdir cmake-build-debug
+cd cmake-build-debug/
+cmake ..
+make -j4 && ./GTest
 ```
