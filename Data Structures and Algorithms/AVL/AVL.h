@@ -1,7 +1,8 @@
 ﻿//code by NGUYEN PHUC LOI
 //HCMUS - 2017
 
-#pragma once
+#ifndef GTEST_AVL_H
+#define GTEST_AVL_H
 
 #include<iostream>
 #include<algorithm>
@@ -18,7 +19,7 @@ template<class T>
 struct AVLNODE {
 	T key;
 	int bal;//thuộc tính cho biết giá trị cân bằng
-			//0: cân bằng, 1: lệch trái, 2: lệch phải
+	//0: cân bằng, 1: lệch trái, 2: lệch phải
 	AVLNODE<T> *pLeft;
 	AVLNODE<T> *pRight;
 	AVLNODE() {
@@ -46,7 +47,7 @@ struct AVLNODE {
 		p->pLeft = NULL;
 		p->pRight = NULL;
 		p->bal = BALANCE;//Khi tao một cây mới thì left và right trỏ NULL
-						 //nên bal = 0 là cây được cân bằng mặc định
+		//nên bal = 0 là cây được cân bằng mặc định
 		return p;
 	}
 };
@@ -121,79 +122,79 @@ private://các phương thức riêng
 
 	void leftBalance(AVLNODE<T> *&P) {
 		switch (P->pLeft->bal) {
-		case LEFT: //mất cân bằng trái trái
-			rightRotate(P);
-			P->bal = BALANCE;
-			P->pRight->bal = BALANCE;
-			break;
+			case LEFT: //mất cân bằng trái trái
+				rightRotate(P);
+				P->bal = BALANCE;
+				P->pRight->bal = BALANCE;
+				break;
 
-		case RIGHT: //mất cân bằng phải
-			leftRotate(P->pLeft);
-			rightRotate(P);
-			switch (P->bal) {
-			case 0:
-				P->pLeft->bal = BALANCE;
-				P->pRight->bal = BALANCE;
+			case RIGHT: //mất cân bằng phải
+				leftRotate(P->pLeft);
+				rightRotate(P);
+				switch (P->bal) {
+					case 0:
+						P->pLeft->bal = BALANCE;
+						P->pRight->bal = BALANCE;
+						break;
+					case 1:
+						P->pLeft->bal = BALANCE;
+						P->pRight->bal = RIGHT;
+						break;
+					case 2:
+						P->pLeft->bal = LEFT;
+						P->pRight->bal = BALANCE;
+						break;
+				}
+				P->bal = BALANCE;
 				break;
-			case 1:
-				P->pLeft->bal = BALANCE;
-				P->pRight->bal = RIGHT;
+			case BALANCE:
+				rightRotate(P);
+				P->bal = RIGHT;
+				P->pRight->bal = LEFT;
 				break;
-			case 2:
-				P->pLeft->bal = LEFT;
-				P->pRight->bal = BALANCE;
-				break;
-			}
-			P->bal = BALANCE;
-			break;
-		case BALANCE:
-			rightRotate(P);
-			P->bal = RIGHT;
-			P->pRight->bal = LEFT;
-			break;
 		}
 
 	}
 
 	void rightBalance(AVLNODE<T> *&P) {
 		switch (P->pRight->bal) {
-		case LEFT: //Mất cân bằng bên phải
-			rightRotate(P->pRight);
-			leftRotate(P);
-			switch (P->bal) {
+			case LEFT: //Mất cân bằng bên phải
+				rightRotate(P->pRight);
+				leftRotate(P);
+				switch (P->bal) {
 
-			case BALANCE:
-				P->pLeft->bal = BALANCE;
-				P->pRight->bal = BALANCE;
+					case BALANCE:
+						P->pLeft->bal = BALANCE;
+						P->pRight->bal = BALANCE;
+						break;
+
+					case LEFT:
+						P->pLeft->bal = LEFT;
+						P->pRight->bal = BALANCE;
+						break;
+
+					case RIGHT:
+						P->pLeft->bal = BALANCE;
+						P->pRight->bal = RIGHT;
+						break;
+				}
+				P->bal = BALANCE;
 				break;
-
-			case LEFT:
-				P->pLeft->bal = LEFT;
-				P->pRight->bal = BALANCE;
-				break;
-
 			case RIGHT:
+				leftRotate(P);
+				P->bal = BALANCE;
 				P->pLeft->bal = BALANCE;
-				P->pRight->bal = RIGHT;
 				break;
-			}
-			P->bal = BALANCE;
-			break;
-		case RIGHT:
-			leftRotate(P);
-			P->bal = BALANCE;
-			P->pLeft->bal = BALANCE;
-			break;
-		case BALANCE:
-			leftRotate(P);
-			P->bal = LEFT;
-			P->pLeft->bal = RIGHT;
-			break;
+			case BALANCE:
+				leftRotate(P);
+				P->bal = LEFT;
+				P->pLeft->bal = RIGHT;
+				break;
 		}
 
 	}
 
-	
+
 
 	int Insert_(AVLNODE<T> *&tree, T x) {
 		int res;
@@ -214,15 +215,15 @@ private://các phương thức riêng
 					return res;
 				}
 				switch (tree->bal) { //Kiểm tra cây đang lệch bên nào
-				case BALANCE:
-					tree->bal = LEFT;
-					return 2;
-				case LEFT:
-					leftBalance(tree);
-					return 1;
-				case RIGHT:
-					tree->bal = BALANCE;
-					return 1;
+					case BALANCE:
+						tree->bal = LEFT;
+						return 2;
+					case LEFT:
+						leftBalance(tree);
+						return 1;
+					case RIGHT:
+						tree->bal = BALANCE;
+						return 1;
 				}
 			}
 			else {
@@ -231,15 +232,15 @@ private://các phương thức riêng
 					return res;
 				}
 				switch (tree->bal) {
-				case BALANCE:
-					tree->bal = RIGHT;
-					return 2;
-				case LEFT:
-					tree->bal = BALANCE;
-					return 1;
-				case RIGHT:
-					rightBalance(tree);
-					return 1;
+					case BALANCE:
+						tree->bal = RIGHT;
+						return 2;
+					case LEFT:
+						tree->bal = BALANCE;
+						return 1;
+					case RIGHT:
+						rightBalance(tree);
+						return 1;
 				}
 			}
 		}
@@ -259,20 +260,20 @@ private://các phương thức riêng
 				}
 				switch (p->bal)
 				{
-				case LEFT:
-					p->bal = BALANCE;
-					return 1;
-					break;
+					case LEFT:
+						p->bal = BALANCE;
+						return 1;
+						break;
 
-				case BALANCE:
-					p->bal = RIGHT;
-					return 2;
-					break;
+					case BALANCE:
+						p->bal = RIGHT;
+						return 2;
+						break;
 
-				case RIGHT:
-					rightBalance(p);
-					return 1;
-					break;
+					case RIGHT:
+						rightBalance(p);
+						return 1;
+						break;
 
 				}
 			}
@@ -284,20 +285,20 @@ private://các phương thức riêng
 					}
 					switch (p->bal)
 					{
-					case LEFT:
-						leftBalance(p);
-						return 1;
-						break;
+						case LEFT:
+							leftBalance(p);
+							return 1;
+							break;
 
-					case BALANCE:
-						p->bal = LEFT;
-						return 2;
-						break;
+						case BALANCE:
+							p->bal = LEFT;
+							return 2;
+							break;
 
-					case RIGHT:
-						p->bal = BALANCE;
-						return 1;
-						break;
+						case RIGHT:
+							p->bal = BALANCE;
+							return 1;
+							break;
 
 					}
 				}
@@ -377,3 +378,5 @@ private://các phương thức riêng
 private://các thuộc tính riêng
 	AVLNODE<T> * m_pTree;
 };
+
+#endif

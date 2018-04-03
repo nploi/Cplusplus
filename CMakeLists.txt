@@ -33,7 +33,7 @@ endif()
 
 include_directories(cmake-build-debug/googletest-src/googlemock/include)
 include_directories(cmake-build-debug/googletest-src/googletest/include)
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp "Data Structures and Algorithms/AVL/AVL_TEST.cpp")
 
 add_executable(GTest ${SOURCE_FILES})
 
