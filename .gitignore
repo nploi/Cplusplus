@@ -4,14 +4,4 @@
 /.idea
 /CMakeCache.txt
 /cmake_install.cmake
-/CODING
-/CODING.cbp
-/gmock.pc
-/gmock_main.pc
-/gtest.pc
-/gtest_main.pc
-/Makefile
-/Project.cbp
-/TEST
-/TEST.cbp
-/untitled.cbp
+/cmake-build-debug
