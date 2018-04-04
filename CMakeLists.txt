@@ -38,6 +38,7 @@ set(SOURCE_FILES main.cpp )
 set(SOURCE_FILES
         "Data Structures and Algorithms/Binary Search/BinarySearch_TEST.cpp"
         "Data Structures and Algorithms/AVL/AVL_TEST.cpp"
+        "Data Structures and Algorithms/Disjoint-set-union/DSU_TEST.cpp"
         )
 
 add_executable(GTest ${SOURCE_FILES})
