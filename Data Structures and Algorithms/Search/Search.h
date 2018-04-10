@@ -1,6 +1,16 @@
-﻿#pragma once
+﻿/*
+@author
+    nploi1998@gmail.com
+@date
+    11/03/2018
+*/
+
+#ifndef SEARCH_H
+#define SEARCH_H
+
 #include<iostream>
 #include<algorithm>
+using namespace std;
 
 //Tìm phần tử nhỏ nhất trong dãy sử dụng Min-heap
 int SearchForMinimum(int* a, int n);
@@ -38,6 +48,5 @@ bool max(T a, T b);
 
 template<class T>
 bool min(T a, T b);
-template<class T>
 
-void swap(T& a, T& b);
+#endif

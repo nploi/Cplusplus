@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include "DSU.h"
 
-TEST(DSU_UNIT_TEST, DSU_TEST){
+TEST(Valid_test_case_DSU, DSU_unit_test){
     DSU dsu;
     dsu.unionSet(1, 2);
     dsu.unionSet(3, 4);

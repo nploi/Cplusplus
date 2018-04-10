@@ -1,4 +1,12 @@
-﻿#include "Search.h"
+﻿/*
+@author
+    nploi1998@gmail.com
+@date
+    11/03/2018
+*/
+
+#include "Search.h"
+
 
 int SearchForMinimum(int * a, int n)
 {
@@ -119,10 +127,3 @@ bool min(T a, T b)
 	return a < b;
 }
 
-template<class T>
-void swap(T& a, T& b)
-{
-	T temp = a;
-	a = b;
-	b = temp;
-}

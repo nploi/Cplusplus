@@ -1,4 +1,11 @@
-﻿#pragma once
+﻿/*
+@author
+    nploi1998@gmail.com
+@date
+    11/03/2018
+*/
+
+#pragma once
 #include<iostream>
 #include<string>
 
@@ -35,37 +42,52 @@ public:
 	List();
 	~List();
 
-	bool addHead(T data);//them vao dau
-	bool addTail(T data);//them vao cuoi
+	bool addHead(T data);
+	bool addTail(T data);
 
-	bool RemoveHead();//xoa dau
-	bool RemoveTail();//xoa cuoi
-
-
-
-
-	//xuat
-	template<class T>
-	friend ostream &operator<<(ostream &outdev, const List<T> &l);
-
-	//=>tham chiếu giá trị trả về
 	void RemoveAll();
+    bool RemoveHead();
+    bool RemoveTail();
 
-	//*******************************
-	//Nang cao
+    /*
+    * if return T(nullptr) is emtpy
+    */
+    T getHead() {
+        if (m_pHead != NULL) {
+            return m_pHead->data;
+        }
+        return T();
+    }
+
+    /*
+     * if return T(nullptr) is emtpy
+     */
+    T getTail() {
+        if (m_pHead != NULL) {
+            for (NODE<T> *p = m_pHead, *t;; p = p->pNext) {
+                if (p->pNext == NULL) {
+                    return p->data;
+                }
+                t = p;
+            }
+        }
+        return T();
+    }
+
+    /*
+     * Add some Methods
+     */
 	long SumList();
 	long MaxList();
 	int CountList();
-
-	int CountList_Same(T x);
+	int CountListSame(T x);
 
 	void Split_X(T x, List<T> &a, List<T> &b);
+
 private:
 	NODE<T> *m_pHead;
 };
 
-
-//********************************************
 
 template<class T>
 inline List<T>::List()
@@ -76,9 +98,9 @@ inline List<T>::List()
 template<class T>
 inline List<T>::~List()
 {
-	if (m_pHead != NULL) {
-		delete m_pHead;
-	}
+    if(m_pHead != NULL) {
+        this->RemoveAll();
+    }
 }
 
 template<class T>
@@ -100,67 +122,66 @@ inline bool List<T>::addHead(T data)
 }
 
 template<class T>
-inline bool List<T>::addTail(T data)
-{
-	if (m_pHead == NULL) {
-		return this->addHead(data);
-	}
-	else {
-		NODE<T> *pN = NULL;
-		
-		pN = pN->CreateNODE(data);
-		if (pN == NULL)
-			return false;
-		NODE<T> *p = m_pHead;
-		while (p->pNext != NULL) {
-			p = p->pNext;
-		}
-		p->pNext = pN;
-		pN->pNext = NULL;
-	}
-	return true;
+inline bool List<T>::addTail(T data) {
+    if (m_pHead == NULL) {
+        return this->addHead(data);
+    } else {
+        NODE<T> *pN = NULL;
+
+        pN = pN->CreateNODE(data);
+        if (pN == NULL)
+            return false;
+        NODE<T> *p = m_pHead;
+        while (p->pNext != NULL) {
+            p = p->pNext;
+        }
+        p->pNext = pN;
+        pN->pNext = NULL;
+    }
+    return true;
 }
 
 template<class T>
-inline bool List<T>::RemoveHead()
-{
-	NODE<T> *p = NULL;
-	if (m_pHead != NULL) {
-		p = m_pHead;
-		m_pHead = m_pHead->pNext;
-		delete p;
-		return true;
-	}
-	delete p;
-	return false;
+inline bool List<T>::RemoveHead() {
+    NODE<T> *p = NULL;
+    if (m_pHead != NULL) {
+        p = m_pHead;
+        m_pHead = m_pHead->pNext;
+        delete p;
+        return true;
+    }
+    delete p;
+    return false;
 }
 
 //chua xong
 template<class T>
 inline bool List<T>::RemoveTail()
 {
-	for (NODE<T> *p = m_pHead,*t;; p = p->pNext) {
-		if (p->pNext == NULL) {
-			t->pNext = NULL;
-			delete p;
-			return true;
+	if(m_pHead!= NULL) {
+		for (NODE<T> *p = m_pHead, *t;; p = p->pNext) {
+			if (p->pNext == NULL) {
+				t->pNext = NULL;
+				delete p;
+				return true;
+			}
+			t = p;
 		}
-		t = p;
 	}
 	return false;
 }
 
 template<class T>
-inline void List<T>::RemoveAll()
-{
-	NODE<T> *pNode;
-	while (m_pHead != NULL)
-	{
-		pNode = m_pHead;
-		m_pHead = m_pHead->pNext;
-		delete pNode;
-	}
-	m_pHead = NULL; //đánh dấu mảng rỗng
+inline void List<T>::RemoveAll() {
+    if (m_pHead->pNext != NULL) {
+        NODE<T> *pNode;
+        while (m_pHead != NULL) {
+            pNode = m_pHead;
+            m_pHead = m_pHead->pNext;
+            delete pNode;
+        }
+        m_pHead = NULL; //đánh dấu mảng rỗng
+    }
 }
 
 template<class T>
@@ -203,35 +224,7 @@ inline int List<T>::CountList()
 }
 
 template<class T>
-inline ostream &operator<<(ostream & outdev,const List<T> &l)
-{
-	NODE<T> *p = l.m_pHead;
-	while (p != NULL) {
-
-		outdev << p->data << " ";
-		p = p->pNext;//để duyệt node tiếp theo
-	}
-	return outdev;
-}
-
-//template<class T>
-//inline istream & operator>>(istream & indev, List<T>& l)
-//{
-//	T Data;
-//	do
-//	{
-//		cout << "Nhap vao du lieu, -1 de ket thuc: ";
-//		indev >> Data;
-//		if (Data == -1)
-//			break;
-//		l.addHead(Data);
-//	} while (Data != -1);
-//	cout << "\nDu lieu da duoc nhap: \n";
-//	return indev;
-//}
-
-template<class T>
-inline int List<T>::CountList_Same(T x)
+inline int List<T>::CountListSame(T x)
 {
 	int c = 0;
 	for (NODE<T> *p = m_pHead; p != NULL; p = p->pNext) {

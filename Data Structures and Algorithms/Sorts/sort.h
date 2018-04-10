@@ -20,14 +20,13 @@ bool ready = false;
 
 int *temp;
 
-
 using namespace std;
 
 template<class T>
-bool TANG(T a, T b);
+bool Max(T a, T b);
 
 template<class T>
-bool GIAM(T a, T b);
+bool Min(T a, T b);
 
 template<class T>
 void hoanVi(T &a, T&b);
@@ -55,8 +54,6 @@ void MergeSort(T *a, int n, bool(*compare)(T, T));
 template<class T>
 inline void Merge_Sort(T * a, int left, int right, bool(*compare)(T, T));
 
-
-
 template<class T>
 void Merge(T * a, int left, int mid, int right, bool(*compare)(T, T));
 
@@ -67,46 +64,30 @@ template<class T>
 void ShellSort(T *a, int n, bool(*compare)(T, T));
 
 
-
-void Insertion_sort(int id) {
-	std::unique_lock<std::mutex> lck(mtx);
-	while (!ready) cv.wait(lck);
-	// ...
-	//std::cout << "thread " << id << '\n';
-	//InsertionSort(arr, N, id);
-}
-
-void go() {
-	std::unique_lock<std::mutex> lck(mtx);
-	ready = true;
-	cv.notify_all();
-}
-//=============================================
-
-void xuat(int *a, int n);
+void out(int *a, int n);
 
 
 #endif // !SORT_H
 
 template<class T>
-inline bool TANG(T a, T b)
+inline bool Max(T a, T b)
 {
 	return a > b;
 }
 
 template<class T>
-inline bool GIAM(T a, T b)
+inline bool Min(T a, T b)
 {
 	return a < b;
 }
 
-template<class T>
-inline void hoanVi(T & a, T & b)
-{
-	T temp = a;
-	a = b;
-	b = temp;
-}
+//template<class T>
+//inline void swap(T & a, T & b)
+//{
+//	T temp = a;
+//	a = b;
+//	b = temp;
+//}
 
 
 

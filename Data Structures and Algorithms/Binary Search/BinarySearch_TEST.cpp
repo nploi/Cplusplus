@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-TEST(BINARY_SEARCH_UNIT_TEST, BINARY_SEARCH_TEST){
+TEST(Valid_test_case_BST, Binary_search_tree_unit_test){
     BST<int> bst;
     bst.insert(1);
     bst.insert(2);

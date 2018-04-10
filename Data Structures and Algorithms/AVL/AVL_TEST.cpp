@@ -8,7 +8,7 @@
 
 using namespace std;
 
-TEST(AVL_TEST, AVL){
+TEST(Valid_test_case_AVL, AVL_unit_test){
     int ss;
     AVL<int> avl;
     avl.insert(1);

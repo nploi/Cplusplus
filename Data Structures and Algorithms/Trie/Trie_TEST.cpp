@@ -6,7 +6,7 @@
 #include <gmock/gmock.h>
 #include "Trie.h"
 
-TEST(Trie_UNIT_TEST, Trie_TEST){
+TEST(Valid_test_case_Trie, Trie_unit_test){
     Trie t;
     t.add("Nguyen");
     t.add("Phuc");

@@ -1,5 +1,9 @@
-﻿//code by NGUYEN PHUC LOI
-//HCMUS - 2017
+﻿/*
+@author
+    nploi1998@gmail.com
+@date
+    04/04/2018.
+*/
 
 #ifndef GTEST_AVL_H
 #define GTEST_AVL_H
