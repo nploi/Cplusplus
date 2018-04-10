@@ -5,7 +5,6 @@
 #include<iostream>
 #include<thread>
 #include <chrono>
-#include<Windows.h>
 #include <mutex>              // std::mutex, std::unique_lock
 #include <condition_variable> // std::condition_variable
 
@@ -23,13 +22,13 @@ int *temp;
 using namespace std;
 
 template<class T>
-bool Max(T a, T b);
+bool Greater(T a, T b);
 
 template<class T>
-bool Min(T a, T b);
+bool Less(T a, T b);
 
 template<class T>
-void hoanVi(T &a, T&b);
+void Swap(T &a, T&b);
 
 template<class T>
 void SelectionSort(T *a, int n, bool(*compare)(T, T));
@@ -58,7 +57,7 @@ template<class T>
 void Merge(T * a, int left, int mid, int right, bool(*compare)(T, T));
 
 //shell sort thread
-void ShellSortThread();
+//void ShellSortThread();
 
 template<class T>
 void ShellSort(T *a, int n, bool(*compare)(T, T));
@@ -70,24 +69,24 @@ void out(int *a, int n);
 #endif // !SORT_H
 
 template<class T>
-inline bool Max(T a, T b)
+inline bool Greater(T a, T b)
+{
+	return !Less(a, b);
+}
+
+template<class T>
+inline bool Less(T a, T b)
 {
 	return a > b;
 }
 
 template<class T>
-inline bool Min(T a, T b)
+inline void Swap(T & a, T & b)
 {
-	return a < b;
+	T temp = a;
+	a = b;
+	b = temp;
 }
-
-//template<class T>
-//inline void swap(T & a, T & b)
-//{
-//	T temp = a;
-//	a = b;
-//	b = temp;
-//}
 
 
 
@@ -102,7 +101,7 @@ inline void SelectionSort(T * a, int n, bool(*compare)(T, T))
 				index = j;
 			}
 		}
-		hoanVi(a[index], a[i]);
+        Swap(a[index], a[i]);
 	}
 }
 
@@ -135,7 +134,7 @@ inline void HeapSort(T * a, int n, bool(*compare)(T, T))
 
 	//B2
 	for (int i = n - 1; i >= 1; i--) {
-		swap(a[0], a[i]);
+        Swap(a[0], a[i]);
 		Heapify(a, i, 0, compare);//vì đã thay đổi chuẩn heap, nên phải chuẩn hóa lại
 	}
 	//Heapify(a, n, 0);//tạo hiệu ứng lang truyền
@@ -159,7 +158,7 @@ inline void Heapify(T * a, int n, int i, bool(*compare)(T, T))
 	}
 	//nếu vị trí tìm khác vị trí của i thì swap và lang truyền heap
 	if (i != vitri) {
-		swap(a[i], a[vitri]);
+        Swap(a[i], a[vitri]);
 		Heapify(a, n, vitri, compare);
 	}
 }
@@ -198,7 +197,7 @@ inline void QuickSort(T * a, int n, int left, int right, bool(*compare)(T, T))
 
 		if (l <= r) {//nếu l còn hợp lệ, tức là l phải nhỏ hơn hoặc = r
 			if (l != r) {//xét nếu vị trí khác nhau thì mới hoán vị
-				swap(a[l], a[r]);
+                Swap(a[l], a[r]);
 			}
 			l++;//duyệt tiếp vị trí
 			r--;//lùi 1 vị trí
@@ -278,17 +277,17 @@ inline void ShellSort(T * a, int n, bool(*compare)(T, T))
 }
 
 
-inline void ShellSortThread()
-{
-
-	std::thread threads[2];
-	// spawn 10 threads:
-	for (int i = 0; i<2; ++i)
-		threads[i] = std::thread(Insertion_sort, H[i]);
-
-	std::cout << "10 threads ready to race...\n";
-	go();                       // go!
-
-	for (auto& th : threads) th.join();
-
-}
+//inline void ShellSortThread()
+//{
+//
+//	std::thread threads[2];
+//	// spawn 10 threads:
+//	for (int i = 0; i<2; ++i)
+//		threads[i] = std::thread(Insertion_sort, H[i]);
+//
+//	std::cout << "10 threads ready to race...\n";
+//	go();                       // go!
+//
+//	for (auto& th : threads) th.join();
+//
+//}

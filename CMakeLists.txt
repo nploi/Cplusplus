@@ -41,7 +41,7 @@ set(SOURCE_FILES
         "Data Structures and Algorithms/Disjoint-set-union/DSU_TEST.cpp"
         "Data Structures and Algorithms/Trie/Trie_TEST.cpp"
         "Data Structures and Algorithms/List/List_TEST.cpp"
-        "Data Structures and Algorithms/Search/Search_TEST.cpp")
+        "Data Structures and Algorithms/Search/Search_TEST.cpp" "Data Structures and Algorithms/Sorts/Sort_TEST.cpp")
 
 add_executable(Cplusplus_test ${SOURCE_FILES})
 target_link_libraries(Cplusplus_test gtest gtest_main)
