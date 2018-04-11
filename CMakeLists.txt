@@ -44,7 +44,8 @@ set(SOURCE_FILES
         "Data Structures and Algorithms/Search/Search_TEST.cpp"
         "Data Structures and Algorithms/Sorts/Sort_TEST.cpp"
         "Data Structures and Algorithms/Stack & Queue/Stack_TEST.cpp"
-        "Data Structures and Algorithms/Stack & Queue/Queue_TEST.cpp")
+        "Data Structures and Algorithms/Stack & Queue/Queue_TEST.cpp"
+        "Data Structures and Algorithms/Heap/Heap_TEST.cpp")
 
 add_executable(Cplusplus_test ${SOURCE_FILES})
 target_link_libraries(Cplusplus_test gtest gtest_main)
