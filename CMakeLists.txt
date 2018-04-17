@@ -36,16 +36,16 @@ include_directories(cmake-build-debug/googletest-src/googletest/include)
 set(SOURCE_FILES main.cpp )
 
 set(SOURCE_FILES
-        "Data Structures and Algorithms/Binary Search/BinarySearch_TEST.cpp"
-        "Data Structures and Algorithms/AVL/AVL_TEST.cpp"
-        "Data Structures and Algorithms/Disjoint-set-union/DSU_TEST.cpp"
-        "Data Structures and Algorithms/Trie/Trie_TEST.cpp"
-        "Data Structures and Algorithms/List/List_TEST.cpp"
-        "Data Structures and Algorithms/Search/Search_TEST.cpp"
-        "Data Structures and Algorithms/Sorts/Sort_TEST.cpp"
-        "Data Structures and Algorithms/Stack & Queue/Stack_TEST.cpp"
-        "Data Structures and Algorithms/Stack & Queue/Queue_TEST.cpp"
-        "Data Structures and Algorithms/Heap/Heap_TEST.cpp")
+        "Data Structures and Algorithms/Data structures/Binary Search/BinarySearch_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/AVL/AVL_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Disjoint-set-union/DSU_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Trie/Trie_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/List/List_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Search/Search_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Sorts/Sort_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Stack & Queue/Stack_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Stack & Queue/Queue_TEST.cpp"
+        "Data Structures and Algorithms/Data structures/Heap/Heap_TEST.cpp")
 
 add_executable(Cplusplus_test ${SOURCE_FILES})
 target_link_libraries(Cplusplus_test gtest gtest_main)
