@@ -41,8 +41,8 @@ set(SOURCE_FILES
         "Data Structures and Algorithms/Data structures/Disjoint-set-union/DSU_TEST.cpp"
         "Data Structures and Algorithms/Data structures/Trie/Trie_TEST.cpp"
         "Data Structures and Algorithms/Data structures/List/List_TEST.cpp"
-        "Data Structures and Algorithms/Data structures/Search/Search_TEST.cpp"
-        "Data Structures and Algorithms/Data structures/Sorts/Sort_TEST.cpp"
+        "Data Structures and Algorithms/Algorithms/Search/Search_TEST.cpp"
+        "Data Structures and Algorithms/Algorithms/Sorts/Sort_TEST.cpp"
         "Data Structures and Algorithms/Data structures/Stack & Queue/Stack_TEST.cpp"
         "Data Structures and Algorithms/Data structures/Stack & Queue/Queue_TEST.cpp"
         "Data Structures and Algorithms/Data structures/Heap/Heap_TEST.cpp")
