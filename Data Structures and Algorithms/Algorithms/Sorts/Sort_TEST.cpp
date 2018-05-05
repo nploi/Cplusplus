@@ -39,7 +39,7 @@ TEST(Valid_case_test_Sort, Sort_unit_test){
         ASSERT_EQ(j, a[j]);
     }
 
-    QuickSort(a, n, 0, n - 1, Less);
+    QuickSort(a, 0, n - 1, Less);
     for (int j = 0; j < n; ++j) {
         ASSERT_EQ(j, a[j]);
     }
@@ -69,17 +69,17 @@ TEST(Valid_case_test_Sort, Sort_unit_test){
         ASSERT_EQ(j, a[i]);
     }
 
-    HeapSort(a, 11, Greater);
+    HeapSort(a, n, Greater);
     for (int j = n - 1, i = 0; i < n; --j, i++) {
         ASSERT_EQ(j, a[i]);
     }
 
-    QuickSort(a, 11, 0, 10, Greater);
+    QuickSort(a, 0,  n - 1, Greater);
     for (int j = n - 1, i = 0; i < n; --j, i++) {
         ASSERT_EQ(j, a[i]);
     }
 
-    MergeSort(a, 11, Greater);
+    MergeSort(a, n, Greater);
     for (int j = n - 1, i = 0; i < n; --j, i++) {
         ASSERT_EQ(j, a[i]);
     }

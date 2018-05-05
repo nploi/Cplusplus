@@ -161,8 +161,11 @@ inline bool List<T>::RemoveTail()
 	if(m_pHead!= NULL) {
 		for (NODE<T> *p = m_pHead, *t;; p = p->pNext) {
 			if (p->pNext == NULL) {
-				t->pNext = NULL;
+                if(t!=NULL) {
+                    t->pNext = NULL;
+                }
 				delete p;
+                p = NULL;
 				return true;
 			}
 			t = p;
@@ -173,15 +176,18 @@ inline bool List<T>::RemoveTail()
 
 template<class T>
 inline void List<T>::RemoveAll() {
-    if (m_pHead->pNext != NULL) {
-        NODE<T> *pNode;
-        while (m_pHead != NULL) {
-            pNode = m_pHead;
-            m_pHead = m_pHead->pNext;
-            delete pNode;
-        }
-        m_pHead = NULL; //đánh dấu mảng rỗng
+    NODE<T> *pNode;
+    while (m_pHead != NULL) {
+        pNode = m_pHead;
+        if (m_pHead->pNext == NULL)
+            break;
+        m_pHead = m_pHead->pNext;
+
+        delete pNode;
     }
+    pNode = m_pHead;
+    delete pNode;
+    m_pHead = NULL; //đánh dấu mảng rỗng
 }
 
 template<class T>

@@ -67,11 +67,13 @@ public:
     }
 
 private:
-    void deletenodes(node *pNode) {
+    void deletenodes(node *&pNode) {
         for (int i = 0; i < MAX; i++) {
             if (pNode->child[i]) {
                 deletenodes(pNode->child[i]);
-                delete pNode->child[i];
+                if (pNode->child != NULL) {
+                    delete pNode->child[i];
+                }
             }
         }
     }
@@ -81,9 +83,13 @@ private:
         node *temp = root;
         for (int i = 0; i < s.size(); ++i) {
             ch = s[i] - 'a';
-            if (temp->child[ch] == NULL) {
-                temp->child[ch] = newNode(0);
-            }
+            if(ch < MAX + 1) {
+                if (temp->child[ch] == NULL) {
+                    temp->child[ch] = newNode(0);
+                }
+            }else{
+                break;
+            };
             temp = temp->child[ch];
         }
         temp->countLeaf++;

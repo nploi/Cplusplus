@@ -45,7 +45,7 @@ template<class T>
 void CreateHeap(T *a, int n, bool(*compare)(T, T));
 
 template<class T>
-void QuickSort(T *a, int n, int left, int right, bool(*compare)(T, T));
+void QuickSort(T *a, int left, int right, bool(*compare)(T, T));
 
 template<class T>
 void MergeSort(T *a, int n, bool(*compare)(T, T));
@@ -184,8 +184,7 @@ inline void xuat(int *a, int n) {
 }
 
 template<class T>
-inline void QuickSort(T * a, int n, int left, int right, bool(*compare)(T, T))
-{
+inline void QuickSort(T * a, int left, int right, bool(*compare)(T, T)) {
 	int l = left, r = right, X = a[(l + r) / 2];//lấy vị trí giữa làm cột móc để so sánh
 
 	while (l <= r) {
@@ -197,7 +196,7 @@ inline void QuickSort(T * a, int n, int left, int right, bool(*compare)(T, T))
 
 		if (l <= r) {//nếu l còn hợp lệ, tức là l phải nhỏ hơn hoặc = r
 			if (l != r) {//xét nếu vị trí khác nhau thì mới hoán vị
-                Swap(a[l], a[r]);
+				Swap(a[l], a[r]);
 			}
 			l++;//duyệt tiếp vị trí
 			r--;//lùi 1 vị trí
@@ -205,9 +204,9 @@ inline void QuickSort(T * a, int n, int left, int right, bool(*compare)(T, T))
 		}
 	}
 	if (left < r)//nếu r lơn hay bằng left thì, thực hiện Quick với mảng bất đâu từ left - r
-		QuickSort(a, n, left, r, compare);
+		QuickSort(a, left, r, compare);
 	if (l < right)//nếu l nhỏ hay bằng right thì, thực hiện Quick với mảng bất đâu từ l - right
-		QuickSort(a, n, l, right, compare);
+		QuickSort(a, l, right, compare);
 
 }
 

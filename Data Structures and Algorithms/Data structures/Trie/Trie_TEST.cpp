@@ -1,7 +1,7 @@
 //
 // Created by loinp on 04/04/2018.
 //
-
+//
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "Trie.h"
