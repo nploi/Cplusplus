@@ -13,3 +13,12 @@ cd cmake-build-debug/
 cmake ..
 make -j4 && ./Cplusplus_test
 ```
+### Test memory leak by valgrind
+```
+# Step 1: Install valgrind
+sudo apt install valgrind
+# Step 2:
+cd cmake-build-debug/
+cmake ..
+make leak
+```
