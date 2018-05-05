@@ -48,4 +48,11 @@ set(SOURCE_FILES
         "Data Structures and Algorithms/Data structures/Heap/Heap_TEST.cpp")
 
 add_executable(Cplusplus_test ${SOURCE_FILES})
+# Make leak
+add_custom_target(
+        leak
+        COMMAND make -j4
+#        COMMAND valgrind --track-origins=yes --error-exitcode=2 --leak-check=full --verbose ./Cplusplus_test
+        COMMAND valgrind --leak-check=full -v ./Cplusplus_test
+)
 target_link_libraries(Cplusplus_test gtest gtest_main)

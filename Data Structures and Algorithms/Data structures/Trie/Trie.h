@@ -19,7 +19,8 @@ using namespace std;
 struct node {
     struct node *child[MAX];
     int countLeaf;
-    node(){
+
+    node() {
         for (int i = 0; i < MAX; ++i) {
             child[i] = NULL;
         }
@@ -55,23 +56,20 @@ public:
         deleteWord_pri(root, str, 0, str.size());
     }
 
-    void deleteAll(){
+    void deleteAll() {
         deletenodes(this->root);
     }
 
-    ~Trie(){
-        if(this->root != NULL) {
+    ~Trie() {
+        if (this->root != NULL) {
             deleteAll();
         }
     }
 
 private:
-    void deletenodes(node *pNode)
-    {
-        for (int i = 0; i<MAX; i++)
-        {
-            if (pNode->child[i])
-            {
+    void deletenodes(node *pNode) {
+        for (int i = 0; i < MAX; i++) {
+            if (pNode->child[i]) {
                 deletenodes(pNode->child[i]);
                 delete pNode->child[i];
             }

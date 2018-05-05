@@ -16,7 +16,7 @@
 class DSU{
 public:
     DSU(){
-        par.resize(MAX);
+        par.resize(MAX + 1);
         for (int i = 1; i <= MAX; ++i) {
             par[i] = i;
         }
@@ -26,10 +26,13 @@ public:
      * find root
      */
     int find(int x) {
-        while (x != par[x]) {
-            x = par[x];
+        if (x <= MAX) {
+            while (x != par[x]) {
+                x = par[x];
+            }
+            return x;
         }
-        return x;
+        return -1;
     }
 
     /*
@@ -37,6 +40,8 @@ public:
      */
     void unionSet(int i, int j){
         int x = find(i), y = find(j);
+        if(x == -1 || y == -1)
+            return;
         par[y] = x;
     }
 
