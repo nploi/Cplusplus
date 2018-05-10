@@ -158,6 +158,11 @@ inline bool List<T>::RemoveHead() {
 template<class T>
 inline bool List<T>::RemoveTail()
 {
+    if(m_pHead->pNext == NULL) {
+        delete m_pHead;
+        m_pHead = NULL;
+        return  true;
+    }
 	if(m_pHead!= NULL) {
 		for (NODE<T> *p = m_pHead, *t;; p = p->pNext) {
 			if (p->pNext == NULL) {

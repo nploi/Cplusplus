@@ -8,12 +8,11 @@
 
 TEST(Valid_test_case_Trie, Trie_unit_test){
     Trie t;
-    t.add("Nguyen");
-    t.add("Phuc");
-    t.add("Loi");
+    t.add("nguyen");
+    t.add("phuc");
+    t.add("loi");
 
-    ASSERT_TRUE(t.find("Nguyen"));
-    ASSERT_TRUE(t.find("Phuc"));
-    ASSERT_TRUE(t.find("Loi"));
-    t.deleteAll();
+    ASSERT_TRUE(t.find("nguyen"));
+    ASSERT_TRUE(t.find("phuc"));
+    ASSERT_TRUE(t.find("loi"));
 }

@@ -18,17 +18,22 @@
 using namespace std;
 
 struct node {
-    struct node *child[MAX];
+    node *child[MAX];
     int countLeaf;
 
-    node() {
-        for (int i = 0; i < MAX; ++i) {
-            child[i] = NULL;
-        }
-    }
+//    node() {
+//        for (int i = 0; i < MAX; ++i) {
+//            child[i] = NULL;
+//        }
+//    }
+//    ~node() {
+//        if(child!=NULL) {
+//            delete child;
+//        }
+//    }
 };
 
-struct node *newNode(int count){
+struct node *newNode(){
     node *Node = new node;
     Node->countLeaf = 0;
     for (int i = 0; i < MAX; ++i) {
@@ -41,7 +46,7 @@ class Trie {
 
 public:
     Trie() {
-        root = newNode(0);
+        root = newNode();
     }
 
     void add(string str) {
@@ -62,35 +67,32 @@ public:
     }
 
     ~Trie() {
-        if (this->root != NULL) {
-            deleteAll();
-        }
+       deletenodes(root);
     }
 
 private:
     void deletenodes(node *&pNode) {
         for (int i = 0; i < MAX; i++) {
-            if (pNode->child[i]) {
+            if (pNode->child[i] != NULL)
                 deletenodes(pNode->child[i]);
-                if (pNode->child != NULL) {
-                    delete pNode->child[i];
-                }
+            if (pNode->child != NULL) {
+                delete pNode->child[i];
             }
         }
+
     }
+
 
     void add_pri(node *&root, string s) {
         int ch;
         node *temp = root;
         for (int i = 0; i < s.size(); ++i) {
             ch = s[i] - 'a';
-            if(ch < MAX + 1) {
+            if(ch < MAX) {
                 if (temp->child[ch] == NULL) {
-                    temp->child[ch] = newNode(0);
+                    temp->child[ch] = newNode();
                 }
-            }else{
-                break;
-            };
+            }
             temp = temp->child[ch];
         }
         temp->countLeaf++;
