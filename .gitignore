@@ -17,3 +17,7 @@
 /Cplusplus
 /Cplusplus_test
 /Cplusplus.cbp
+/gmock*
+/gtest*
+/CTestTestfile.cmake
+
