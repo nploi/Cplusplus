@@ -8,6 +8,7 @@ cmake . && sudo make install
 ```
 ### How to test all data structures
 ```
+git submodule update --init
 mkdir cmake-build-debug
 cd cmake-build-debug/
 cmake ..
